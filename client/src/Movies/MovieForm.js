@@ -3,14 +3,14 @@ import axios from "axios"
 import MovieCard from "./MovieCard";
 
 const MovieForm = (props) => {
-    const [query, setQuery] = useState('')
+    const [starHandle, setStarHandle] = useState('')
     const [movie, setMovie] = useState(null)
     const [newMovie, setNewMovie] = useState({
             id:69,
             title: '',
             director: '',
             metascore: null,
-            stars: ['Kurt Russell', 'Bill Paxton', 'Sam Elliot']
+            stars: []
     })
 
     const fetchMovie = id => {
@@ -75,7 +75,25 @@ const MovieForm = (props) => {
                 <input type="text" name="metascore" value={newMovie.metascore} onChange={handleChange} />
                 <br/>
                 <button type="submit">Submit</button>
-            </form>
+                <h5>Stars</h5>
+                <input
+                name='stars'
+                placeholder='Stars'
+                value={starHandle}
+                onChange={(e) => {
+                    setStarHandle(e.target.value)
+                }}
+                />
+                <button onClick={(e) => {
+                    e.preventDefault()
+                    setNewMovie({...newMovie, stars: [...newMovie.stars, starHandle]})
+                    setStarHandle('')
+                }}>Add Stars</button>
+                {newMovie.stars.map((item, index) => {
+                    return <p key={index}>{item}</p>
+                })}
+                <button type='submit'>Update Movie</button>
+                </form>
         </div>
     )
 }

@@ -19,14 +19,11 @@ const App = () => {
       })
       .catch(err => console.log(err.response));
   };
+  getMovieList();
 
   const addToSavedList = movie => {
     setSavedList([...savedList, movie]);
   };
-
-  useEffect(() => {
-    getMovieList();
-  }, []);
 
   return (
     <>
